@@ -14,10 +14,25 @@ models:
         tests:
           - unique
           - not_null
+        data_type: integer
       - name: status
         tests:
           - accepted_values:
-              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+              values:
+                - completed
+                - placed
+                - return_pending
+                - returned
+                - shipped
+        data_type: varchar
+        description: "{{ doc('orders_status') }}"
+      - name: customer_id
+        description: id  of customer
+        data_type: integer
+        tests:
+          - not_null
+      - name: order_date
+        data_type: date
 
   - name: stg_payments
     columns:
@@ -28,4 +43,4 @@ models:
       - name: payment_method
         tests:
           - accepted_values:
-              values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
+              values: [ 'credit_card', 'coupon', 'bank_transfer', 'gift_card' ]

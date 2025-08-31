@@ -6,28 +6,38 @@ models:
 
     columns:
       - name: customer_id
-        description: This is a unique identifier for a customer
+        description: This is a unique identifier for a customer, it should be not null and unique.
         tests:
           - unique
           - not_null
+        data_type: integer
 
       - name: first_name
         description: Customer's first name. PII.
+        data_tests:
+          - not_null
+        data_type: varchar
 
       - name: last_name
         description: Customer's last name. PII.
+        data_type: varchar
 
       - name: first_order
         description: Date (UTC) of a customer's first order
+        data_type: date
 
       - name: most_recent_order
         description: Date (UTC) of a customer's most recent order
+        data_type: date
 
       - name: number_of_orders
         description: Count of the number of orders a customer has placed
+        data_type: bigint
 
       - name: total_order_amount
         description: Total value (AUD) of a customer's orders
+      - name: customer_lifetime_value
+        data_type: hugeint
 
   - name: orders
     description: This table has basic information about orders, as well as some derived facts based on payments
@@ -54,7 +64,7 @@ models:
         description: '{{ doc("orders_status") }}'
         tests:
           - accepted_values:
-              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+              values: [ 'placed', 'shipped', 'completed', 'return_pending', 'returned' ]
 
       - name: amount
         description: Total amount (AUD) of the order
